@@ -62,7 +62,7 @@ function hexToRgb(hex) {
 
     rgb_color.r = parseInt(hex.slice(0, 2), 16);
     rgb_color.g = parseInt(hex.slice(2, 4), 16);
-    rgb_color.b = parseInt(hex.slice(4), 16);
+    rgb_color.b = parseInt(hex.slice(4, 6), 16);
 
     return rgb_color;
 }
@@ -309,8 +309,18 @@ function colorsFromValueSequence(sorted_values, map) {
     return color_list;
 }
 
+function setInputOutlineColors() {
+    var color_selectors = document.getElementsByClassName('color-select');
+
+    for (var i = 0; i < color_selectors.length; i++) {
+	var color_rgb = hexToRgb(color_selectors[i].value);
+	color = "rgb(" + color_rgb.r + "," + color_rgb.g + "," + color_rgb.b + ")";
+        color_selectors[i].style.borderColor = color;
+    }
+}
+
 function generateScarfPattern() {
-    var color_selectors = document.getElementsByClassName('jscolor');
+    var color_selectors = document.getElementsByClassName('color-select');
     var ascending = true;
     var colors = [];
     var sorting_algorithm = document.getElementById('algorithm').value;
